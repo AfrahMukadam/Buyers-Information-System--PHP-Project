@@ -1,0 +1,107 @@
+<html>
+<head>
+<title>registration form</title>
+</head>
+<body  bgcolor="pink" >
+<font color="red" size="4">
+<h1 align="center">BUYER'S  INFORMATION  ENTRY  FORM </h1></br>
+<form name="registration" action="submit.php" method="POST">
+<div>
+</div>
+<table id="table1"  cellspacing="5px" cellpadding="5%"  align="center">  
+<tr>  
+<td align="right"><b>Enter name:</b></td>
+<td><input type="text" id="txt1" name="t1"/></td>
+</tr>
+<tr>
+<td align="right"><b>Address:</b></td>
+<td><textarea name="t2" id="txt2" cols="30" rows="3" wrap="soft" /></textarea></td>
+</tr>
+<tr>
+<td align="right"><b>City:</b></td>
+<td><input type="text" id="txt3" name="t3"/></td>
+</tr>
+<tr>
+<td align="right"><b>Pin-Code:</b></td>
+<td><input type="text" id="txt4" name="t4"/></td>
+</tr>
+<tr>
+<td align="right"><b>Email:</b></td>
+<td><input type="text" id="txt5" name="t5" /></td>
+</tr>
+<tr>
+<td align="right"><b>Phone number:</b></td>
+<td><input type="text" id="txt6"  name="t6"/></td>
+</tr>
+<tr>
+<td align="right"><b>Product details:</b></td>
+<td><textarea name="t7" cols="30" rows="3" wrap="soft" id="txt7"></textarea></td>
+</tr>
+<tr>
+<td align="right"><b>Payment method:</b></td>
+<td><select name="t8" id="paymode">
+
+		<option value="1">Select mode</option>
+
+		<option value="Cash on delivery">Cash on delivery</option>
+
+		<option value="Debit card">Debit card</option>
+
+		<option value="Credit card">Credit card</option>
+
+		<option value="Net Banking">Net Banking</option>
+
+		<option value="EMI">EMI</option>
+
+		</select></td>
+</tr>
+<tr>
+<td align="right"><input type="submit" name="b1" value="Submit"></td>
+<td align="left"><input type="reset" value="Reset"></td>	
+</tr>
+</head>
+</font>
+</form>
+</body>
+</html>
+
+
+
+
+
+<?php
+if(isset($_POST['b1']))
+{
+	
+	$name=$_POST['t1'];
+	$add=$_POST['t2'];
+	$city=$_POST['t3'];
+	$pin=$_POST['t4'];
+	$email=$_POST['t5'];
+	$phone=$_POST['t6'];
+	$prod_details=$_POST['t7'];
+	$pay_method=$_POST['t8'];
+
+	$host="localhost";
+	$user='root';
+	$pass='';
+	$dbname='buyer';
+	$conn=mysqli_connect($host,$user,$pass,$dbname);
+	if(!$conn)
+	{
+		die('could not connect:'.mysqli_connect_error());
+	}
+	echo'Connect Successfully...<br/>';
+	$sql="INSERT INTO buy VALUES('$name','$add','$city','$pin','$email','$phone','$prod_details','$pay_method')";
+ 	if(mysqli_query($conn,$sql))
+ 	{
+ 		echo "Record inserted successfully...";
+ 	}
+ 	else
+ 	{
+ 		echo "Could not insert record:".mysqli_error($conn);
+ 	}
+ 	mysqli_close($conn);
+
+}
+?>
